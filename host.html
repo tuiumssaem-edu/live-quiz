@@ -86,11 +86,95 @@
   .bar.ok .nm::after { content: " ✓"; color: var(--mint); }
   .stat-big { font-family: var(--display); font-size: 1.5rem; }
 
-  /* 설명 */
-  .ex { display: grid; gap: 1.2em; justify-items: center; text-align: center; }
-  .ex h2 { font-size: clamp(2rem, 3.2vw, 3.8rem); line-height: 1.3; max-width: 24em; }
-  .ex img { width: auto; max-width: 100%; max-height: 52vh; aspect-ratio: 16 / 9; object-fit: contain; border-radius: 20px; border: 2px solid var(--line); background: #fff; }
-  .ex p { font-size: clamp(1.15rem, 1.5vw, 1.9rem); margin: 0; max-width: 40em; color: var(--ink); line-height: 1.6; }
+  /* 설명 슬라이드 */
+  .slide {
+    flex: 1; display: flex; flex-direction: column; gap: 1.1em;
+    background: var(--card); border: 2px solid var(--line); border-radius: 28px;
+    padding: 1.6em 2em 1.3em; box-shadow: 0 8px 0 rgba(31,45,90,.06);
+  }
+  .slide-head { display: grid; gap: .5em; justify-items: start; }
+  .slide-head h2 { font-size: clamp(1.9rem, 2.9vw, 3.4rem); line-height: 1.3; max-width: 26em; }
+  .slide-body { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.6em; align-items: center; }
+  .slide-body.has-art { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); }
+  @media (max-width: 900px) { .slide-body.has-art { grid-template-columns: 1fr; } }
+  .visual { font-size: 1.12em; }
+  .slide-body.has-art .visual { font-size: 1em; }
+  .art { margin: 0; }
+  .art img { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 22px; display: block; }
+  .slide-foot { display: flex; gap: .8em; align-items: baseline; border-top: 2px dashed var(--line); padding-top: .9em; }
+  .slide-foot p { margin: 0; font-size: clamp(1rem, 1.25vw, 1.5rem); color: var(--ink-soft); line-height: 1.55; }
+  .src-tag { flex: none; background: var(--ink); color: #fff; font-weight: 700; font-size: .8em; padding: .25em .8em; border-radius: 999px; }
+  .lead { font-family: var(--display); font-size: 1.3em; color: var(--ink-soft); margin: 0 0 .8em; }
+
+  /* 흐름도 */
+  .flow { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2.4em; }
+  .flow .step { position: relative; background: var(--paper); border: 2px solid var(--line); border-radius: 22px; padding: 1.2em 1.2em 1.3em; display: grid; gap: .5em; align-content: start; }
+  .flow .step:not(:last-child)::after {
+    content: ""; position: absolute; right: -1.85em; top: 50%; width: 1.3em; height: 1.3em; transform: translateY(-50%);
+    background: var(--coral); clip-path: polygon(0 15%, 60% 15%, 60% 0, 100% 50%, 60% 100%, 60% 85%, 0 85%);
+  }
+  .flow .n { width: 2em; height: 2em; border-radius: 50%; display: grid; place-items: center; color: #fff; font-family: var(--display); font-size: 1.2em; }
+  .flow .step:nth-child(4n+1) .n { background: var(--coral); }
+  .flow .step:nth-child(4n+2) .n { background: var(--mint); }
+  .flow .step:nth-child(4n+3) .n { background: var(--sky); }
+  .flow .step:nth-child(4n+4) .n { background: var(--mustard); color: var(--ink); }
+  .flow .t { font-family: var(--display); font-size: 1.55em; line-height: 1.3; }
+  .flow .s { color: var(--ink-soft); line-height: 1.5; }
+  /* 그림이 함께 있을 때: 흐름도를 세로 목록으로 */
+  .slide-body.has-art .flow { grid-auto-flow: row; gap: .6em; }
+  .slide-body.has-art .flow .step { grid-template-columns: auto minmax(0, 1fr); column-gap: .9em; row-gap: .15em; padding: .75em 1.1em; align-items: center; }
+  .slide-body.has-art .flow .n { grid-row: span 2; }
+  .slide-body.has-art .flow .t { font-size: 1.35em; }
+  .slide-body.has-art .flow .step:not(:last-child)::after { display: none; }
+  .slide-body.has-art:has(.cmp) { grid-template-columns: minmax(0, 1.75fr) minmax(0, .9fr); }
+  @media (max-width: 900px) { .flow { grid-auto-flow: row; } .flow .step:not(:last-child)::after { display: none; } }
+
+  /* 표 · 비교표 */
+  .tbl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 1.15em; }
+  .tbl th, .tbl td { padding: .75em 1em; text-align: left; border-bottom: 2px solid var(--line); vertical-align: middle; }
+  .tbl thead th { font-family: var(--display); font-weight: 400; font-size: 1.15em; border-bottom: 3px solid var(--ink); }
+  .tbl tbody th { font-weight: 700; color: var(--ink-soft); width: 18%; white-space: nowrap; }
+  .tbl.cmp thead th:nth-child(2) { color: var(--sky); }
+  .tbl.cmp thead th:nth-child(3) { color: var(--coral); }
+  .tbl.cmp td { width: 41%; }
+  .tbl.cmp td:nth-child(3) { background: var(--coral-soft); }
+  .tbl.cmp tr:first-child td:nth-child(3) { border-top-left-radius: 0; }
+  .tbl .num { font-family: var(--display); font-size: 1.35em; }
+  .tbl tr.hi td, .tbl tr.hi th { background: var(--coral-soft); color: var(--ink); }
+  .tbl tr.hi .num { color: var(--coral); font-size: 1.7em; }
+
+  /* 연령 막대 */
+  .tline { display: flex; gap: .4em; align-items: stretch; }
+  .tline .seg { border-radius: 18px; padding: 1.1em 1.2em; display: grid; gap: .35em; align-content: center; min-height: 9em; }
+  .tline .seg .lb { font-family: var(--display); font-size: 1.5em; line-height: 1.25; }
+  .tline .seg .tg { justify-self: start; font-weight: 800; padding: .2em .8em; border-radius: 999px; background: rgba(255,255,255,.85); }
+  .tline .seg .sb { font-weight: 700; opacity: .9; }
+  .seg.mint { background: var(--mint-soft); color: #0E5F54; }
+  .seg.coral { background: var(--coral); color: #fff; }
+  .seg.coral .tg { color: var(--coral); }
+  .seg.sky { background: #DCE7FA; color: #23478F; }
+
+  /* 체크리스트 · 카드 */
+  .check { display: grid; gap: .8em; list-style: none; margin: 0; padding: 0; }
+  .check li { display: grid; grid-template-columns: 2.2em 1fr; gap: .9em; align-items: center; background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: .9em 1.2em; }
+  .check .ck { width: 2.2em; height: 2.2em; border-radius: 50%; background: var(--mint); color: #fff; display: grid; place-items: center; font-weight: 900; }
+  .check .t, .cards .t { font-family: var(--display); font-size: 1.5em; line-height: 1.3; }
+  .check .s, .cards .s { color: var(--ink-soft); }
+  .cards { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 1em; }
+  .cards .cd { border-radius: 22px; padding: 1.4em; display: grid; gap: .4em; align-content: start; min-height: 9em; border: 2px solid var(--line); background: var(--paper); border-top: 10px solid var(--c); }
+  .cards .cd:nth-child(1) { --c: var(--coral); } .cards .cd:nth-child(2) { --c: var(--mint); } .cards .cd:nth-child(3) { --c: var(--sky); }
+
+  /* 낱말 칩 */
+  .chipset { display: flex; flex-wrap: wrap; gap: .6em; }
+  .chipset span { background: var(--mint-soft); color: #0E5F54; font-weight: 800; font-size: 1.15em; padding: .45em 1em; border-radius: 999px; }
+  .badbox { margin-top: 1.1em; display: flex; gap: 1em; align-items: center; background: var(--coral-soft); border-radius: 18px; padding: .9em 1.2em; }
+  .badbox b { font-family: var(--display); font-weight: 400; font-size: 1.6em; color: var(--coral); text-decoration: line-through; text-decoration-thickness: 3px; }
+
+  /* 정의 */
+  .define { display: grid; gap: 1em; }
+  .define .word { font-family: var(--display); font-size: clamp(3rem, 6vw, 6rem); color: var(--coral); line-height: 1; }
+  .define blockquote { margin: 0; font-size: 1.3em; line-height: 1.6; border-left: 6px solid var(--mint); padding: .2em 0 .2em 1em; }
+  .define blockquote mark { background: linear-gradient(transparent 55%, #FFE1DA 55%); color: inherit; }
 
   /* 최종 */
   .podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: end; max-width: 900px; margin: 0 auto; width: 100%; }
@@ -192,13 +276,19 @@
     </div>
   </section>
 
-  <!-- 설명 -->
+  <!-- 설명 슬라이드 -->
   <section id="explain" data-screen hidden>
-    <div class="ex">
-      <h2 id="exTitle"></h2>
-      <img id="exImg" alt="">
-      <p id="exComment"></p>
-    </div>
+    <article class="slide">
+      <header class="slide-head">
+        <span class="label" id="exNo"></span>
+        <h2 id="exTitle"></h2>
+      </header>
+      <div class="slide-body" id="exBody">
+        <div class="visual" id="exVisual"></div>
+        <figure class="art" id="exArt" hidden><img id="exImg" alt=""></figure>
+      </div>
+      <footer class="slide-foot"><span class="src-tag">근거</span><p id="exComment"></p></footer>
+    </article>
     <div class="actions"><button class="btn coral" id="exNext"></button></div>
   </section>
 

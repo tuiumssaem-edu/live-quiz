@@ -248,14 +248,69 @@
     $("rNext").onclick = goNext;
   }
 
+  function renderVisual(v) {
+    if (!v) return null;
+    switch (v.type) {
+      case "flow":
+        return el("div", { class: "flow" }, v.steps.map((st, i) =>
+          el("div", { class: "step" }, el("span", { class: "n" }, String(i + 1)), el("div", { class: "t" }, st.t), st.s ? el("div", { class: "s" }, st.s) : null)));
+      case "compare":
+        return el("table", { class: "tbl cmp" },
+          el("thead", {}, el("tr", {}, el("th", {}, ""), v.cols.map((c) => el("th", {}, c)))),
+          el("tbody", {}, v.rows.map((r) => el("tr", {}, el("th", {}, r[0]), r.slice(1).map((c) => el("td", {}, c))))));
+      case "table":
+        return el("table", { class: "tbl" },
+          el("thead", {}, el("tr", {}, v.head.map((h) => el("th", {}, h)))),
+          el("tbody", {}, v.rows.map((r, i) => el("tr", { class: i === v.hi ? "hi" : "" },
+            el("th", {}, r[0]), r.slice(1).map((c) => el("td", {}, el("span", { class: "num" }, c)))))));
+      case "timeline":
+        return el("div", { class: "tline" }, v.segs.map((g) =>
+          el("div", { class: `seg ${g.tone}`, style: `flex:${g.flex}` },
+            el("div", { class: "lb" }, g.label), el("span", { class: "tg" }, g.tag), g.sub ? el("div", { class: "sb" }, g.sub) : null)));
+      case "checklist":
+        return el("div", {}, v.lead ? el("p", { class: "lead" }, v.lead) : null,
+          el("ul", { class: "check" }, v.items.map((it) =>
+            el("li", {}, el("span", { class: "ck", "aria-hidden": "true" }, "✓"), el("div", {}, el("div", { class: "t" }, it.t), el("div", { class: "s" }, it.s))))));
+      case "cards":
+        return el("div", {}, v.lead ? el("p", { class: "lead" }, v.lead) : null,
+          el("div", { class: "cards" }, v.items.map((it) => el("div", { class: "cd" }, el("div", { class: "t" }, it.t), el("div", { class: "s" }, it.s)))));
+      case "chips":
+        return el("div", {}, v.lead ? el("p", { class: "lead" }, v.lead) : null,
+          el("div", { class: "chipset" }, v.items.map((c) => el("span", {}, c))),
+          v.bad ? el("div", { class: "badbox" }, el("b", {}, v.bad.t), el("span", {}, v.bad.s)) : null);
+      case "define": {
+        const q = el("blockquote", {});
+        let rest = v.quote;
+        // 핵심 구절을 형광펜으로
+        ["일반학교에서", "차별을 받지 아니하고", "또래와 함께", "개개인의 교육적 요구에 적합한"].forEach((k) => {
+          const i = rest.indexOf(k);
+          if (i < 0) return;
+          q.append(rest.slice(0, i), el("mark", {}, k));
+          rest = rest.slice(i + k.length);
+        });
+        q.append(rest);
+        return el("div", { class: "define" }, el("div", { class: "word" }, v.word), q,
+          el("div", { class: "chipset" }, v.keys.map((k) => el("span", {}, k))));
+      }
+    }
+    return null;
+  }
+
   function renderExplain() {
     const qi = state.qi, ex = QS[qi].explain;
     show("explain");
+    $("exNo").textContent = `${qi + 1}번 문제 설명`;
     $("exTitle").textContent = ex.title;
     $("exComment").textContent = ex.comment;
-    const img = $("exImg");
-    img.hidden = !ex.img;
-    if (ex.img) { img.src = ex.img; img.alt = ex.title; }
+    const vis = $("exVisual");
+    vis.textContent = "";
+    const v = renderVisual(ex.visual);
+    if (v) vis.append(v);
+    vis.hidden = !v;
+    const art = $("exArt");
+    art.hidden = !ex.art;
+    $("exBody").classList.toggle("has-art", !!ex.art);
+    if (ex.art) { $("exImg").src = ex.art; $("exImg").alt = ex.title; }
     $("exNext").textContent = nextLabel(qi);
     $("exNext").onclick = goNext;
   }
