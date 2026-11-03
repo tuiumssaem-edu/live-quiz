@@ -288,5 +288,18 @@
     };
   }
 
+  // 전체화면 켜기/끄기 (F 키도 가능)
+  function toggleFs() {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    else document.documentElement.requestFullscreen().catch(() => {});
+  }
+  $("fsBtn").onclick = toggleFs;
+  document.addEventListener("keydown", (e) => {
+    if ((e.key === "f" || e.key === "F") && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) toggleFs();
+  });
+  document.addEventListener("fullscreenchange", () => {
+    $("fsBtn").textContent = document.fullscreenElement ? "전체화면 끄기" : "전체화면";
+  });
+
   boot();
 })();
