@@ -3,6 +3,7 @@
   - 문제를 고치거나 바꾸려면 이 파일만 수정하면 됩니다.
   - type: choice(선택형) · ox(OX형) · short(단답형) · chosung(초성퀴즈) · order(순서완성형)
   - time: 제한 시간(초)
+  - double: true 이면 그 문제는 점수 2배
   - explain: 정답 공개 뒤 보여 줄 설명 화면 (title 큰 제목, comment 아래 설명·출처, img 그림)
 */
 window.QUIZ = {
@@ -120,6 +121,7 @@ window.QUIZ = {
       text: "특수교육대상자가 일반학교에서 또래와 함께 교육받는 것은?",
       hint: "ㅌㅎㄱㅇ",
       answers: ["통합교육"],
+      double: true,
       display: "통합교육",
       time: 30,
       explain: {

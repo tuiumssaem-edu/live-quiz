@@ -114,6 +114,7 @@
       builtQi = qi;
       $("qNo").textContent = `${qi + 1} / ${QS.length}`;
       $("qType").textContent = QZ.TYPE_LABEL[q.type];
+      $("qDouble").hidden = !q.double;
       $("qText").textContent = q.text;
       buildAnswerUI(q, qi);
     }

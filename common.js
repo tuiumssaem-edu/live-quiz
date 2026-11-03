@@ -49,11 +49,11 @@
     }
   }
 
-  // 정답이면 500~1000점: 빨리 낼수록 높음
+  // 정답이면 500~1000점: 빨리 낼수록 높음 (double 문제는 2배)
   function points(q, at, startAt) {
     const dur = q.time * 1000;
     const r = Math.min(Math.max((at - startAt) / dur, 0), 1);
-    return Math.round(1000 * (1 - r / 2));
+    return Math.round(1000 * (1 - r / 2)) * (q.double ? 2 : 1);
   }
 
   function rank(players) {

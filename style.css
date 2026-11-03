@@ -94,3 +94,9 @@ input:focus { border-color: var(--mint); outline: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.double-badge {
+  display: inline-block; background: var(--coral); color: #fff; font-family: var(--display);
+  padding: 5px 14px; border-radius: 999px; animation: wiggle 1.2s ease-in-out infinite;
+}
+@keyframes wiggle { 0%,100% { transform: rotate(-3deg) scale(1); } 50% { transform: rotate(3deg) scale(1.08); } }

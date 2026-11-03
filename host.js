@@ -127,6 +127,8 @@
     show("question");
     $("qNo").textContent = `${qi + 1} / ${QS.length}`;
     $("qType").textContent = QZ.TYPE_LABEL[q.type];
+    $("qDouble").hidden = !q.double;
+    $("countDouble").hidden = !q.double;
     $("qText").textContent = q.text;
     const body = $("qBody");
     body.textContent = "";

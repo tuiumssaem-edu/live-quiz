@@ -153,13 +153,14 @@
     <div class="qhead">
       <span class="qno" id="qNo"></span>
       <span class="label" id="qType"></span>
+      <span class="double-badge" id="qDouble" hidden>점수 2배!</span>
       <span class="answered"><b id="ansCount">0</b> / <span id="ansTotal">0</span> 명 제출</span>
       <div class="timer" id="timer"><span id="timerNum"></span></div>
     </div>
     <div class="qtext" id="qText"></div>
     <div id="qBody"></div>
     <div class="actions"><button class="btn ghost" id="revealNow">바로 정답 공개</button></div>
-    <div class="count-over" id="countOver" hidden><div><div style="font-size:5vmin" id="countLabel"></div><div class="n" id="countNum"></div></div></div>
+    <div class="count-over" id="countOver" hidden><div><div style="font-size:5vmin" id="countLabel"></div><div class="double-badge" id="countDouble" style="font-size:4vmin;margin-top:2vmin" hidden>점수 2배 찬스!</div><div class="n" id="countNum"></div></div></div>
   </section>
 
   <!-- 정답 공개 -->
