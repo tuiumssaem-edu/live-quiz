@@ -1,6 +1,8 @@
 /*
-  Firebase 연결 설정
-  Firebase 콘솔 → 프로젝트 설정 → 내 앱(웹)에서 복사한 firebaseConfig 값을 아래에 붙여 넣으세요.
-  (databaseURL 줄이 꼭 있어야 합니다.)
+  Firebase 연결 설정 (Realtime Database만 사용)
+  다른 Firebase 프로젝트로 바꾸려면 projectId와 databaseURL만 바꾸면 됩니다.
 */
-window.FIREBASE_CONFIG = null;
+window.FIREBASE_CONFIG = {
+  projectId: "tuium-live-quiz",
+  databaseURL: "https://tuium-live-quiz-default-rtdb.asia-southeast1.firebasedatabase.app"
+};
