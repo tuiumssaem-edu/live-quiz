@@ -246,9 +246,6 @@
     const ex = QS[state.qi].explain;
     $("exTitle").textContent = ex.title;
     $("exComment").textContent = ex.comment;
-    const img = $("exImg");
-    img.hidden = !ex.img;
-    if (ex.img) { img.src = ex.img; img.alt = ex.title; }
     show("ex");
   }
 
