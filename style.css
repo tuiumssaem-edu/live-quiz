@@ -1,0 +1,96 @@
+/* 틔움쌤 퀴즈: 크림색 모눈종이 위에 남색 둥근 글씨, 민트 라벨, 코랄 강조 */
+:root {
+  --paper: #FBF6EA;
+  --grid: rgba(31, 45, 90, .07);
+  --ink: #1F2D5A;
+  --ink-soft: #5A6588;
+  --mint: #2FB5A2;
+  --mint-soft: #D6F1EC;
+  --coral: #FF6F59;
+  --coral-soft: #FFE1DA;
+  --mustard: #F2B33D;
+  --sky: #4A7BD8;
+  --card: #FFFFFF;
+  --line: #E6DFCC;
+  --display: "Jua", "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--ink);
+  font-family: var(--body);
+  -webkit-tap-highlight-color: transparent;
+}
+[hidden] { display: none !important; }
+h1, h2, h3, .display { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; }
+button { font: inherit; cursor: pointer; border: 0; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+input {
+  font: inherit; width: 100%; padding: 14px 16px; border-radius: 14px;
+  border: 2px solid var(--line); background: var(--card); color: var(--ink); font-size: 1.15rem;
+}
+input:focus { border-color: var(--mint); outline: none; }
+
+.wrap {
+  min-height: 100%;
+  padding-block: 20px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 16px;
+}
+.label {
+  display: inline-block; background: var(--mint-soft); color: #11695D;
+  font-weight: 700; font-size: .85rem; letter-spacing: .04em;
+  padding: 5px 12px; border-radius: 999px;
+}
+.label.coral { background: var(--coral-soft); color: #B23A26; }
+.card { background: var(--card); border: 2px solid var(--line); border-radius: 22px; padding: 20px; }
+.btn {
+  background: var(--ink); color: #fff; font-family: var(--display); font-size: 1.25rem;
+  padding: 14px 26px; border-radius: 16px; box-shadow: 0 4px 0 #0E1636;
+  transition: transform .08s;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #0E1636; }
+.btn.coral { background: var(--coral); box-shadow: 0 4px 0 #C94530; }
+.btn.mint { background: var(--mint); box-shadow: 0 4px 0 #1B7E70; }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: none; border: 2px solid var(--ink); }
+.btn[disabled] { opacity: .45; cursor: default; }
+.muted { color: var(--ink-soft); }
+.center { text-align: center; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.grow { flex: 1; min-width: 0; }
+
+/* 보기 색 */
+.opt-0 { --c: var(--coral); }
+.opt-1 { --c: var(--mint); }
+.opt-2 { --c: var(--sky); }
+.opt-3 { --c: var(--mustard); }
+.opt-o { --c: var(--sky); }
+.opt-x { --c: var(--coral); }
+
+.tag-num {
+  display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%;
+  background: rgba(255,255,255,.28); font-family: var(--display); flex: none;
+}
+
+/* 순위 */
+.rank-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.rank-list li {
+  display: grid; grid-template-columns: 2.4em 1fr auto; align-items: center; gap: 10px;
+  background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 10px 14px;
+  font-variant-numeric: tabular-nums;
+}
+.rank-list .pos { font-family: var(--display); font-size: 1.3em; color: var(--mint); }
+.rank-list .nm { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rank-list .sc { font-family: var(--display); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
