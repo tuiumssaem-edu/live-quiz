@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>장애인식개선 퀴즈 · 진행자</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { font-size: clamp(18px, 1.15vw + 6px, 36px); }
+  section[data-screen] { display: flex; flex-direction: column; gap: 1.1em; flex: 1; }
+  section[data-screen] > .actions { margin-top: auto; }
+  .wrap { max-width: min(1700px, calc(100% - 2 * clamp(12px, 5.5vw, 110px))); margin-inline: auto; }
+  .topbar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .brand { font-family: var(--body); font-weight: 800; font-size: 1.3rem; }
+  .brand b { color: var(--coral); }
+
+  /* 시작 */
+  #start .card { max-width: 640px; margin: 6vh auto 0; display: grid; gap: 18px; text-align: center; padding: 36px 28px; }
+  #start h1 { font-size: clamp(2rem, 4vw, 3rem); }
+
+  /* 대기실 */
+  .lobby { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; align-items: start; }
+  @media (max-width: 820px) { .lobby { grid-template-columns: 1fr; } }
+  .join-card { display: grid; gap: 14px; justify-items: center; text-align: center; }
+  #qr { background: #fff; padding: 14px; border-radius: 18px; border: 2px solid var(--line); }
+  #qr img, #qr canvas { display: block; width: min(320px, 70vw) !important; height: auto !important; }
+  .pin { font-family: var(--body); font-weight: 800; font-size: clamp(2.6rem, 6vw, 4.4rem); letter-spacing: .12em; line-height: 1; }
+  .url { font-size: .9rem; word-break: break-all; color: var(--ink-soft); }
+  .people-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+  .people-head .n { font-family: var(--body); font-weight: 800; font-size: 2.4rem; color: var(--coral); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    background: var(--card); border: 2px solid var(--line); border-radius: 999px; padding: 6px 14px;
+    font-weight: 700; animation: pop .3s ease-out; display: inline-flex; gap: 6px; align-items: center;
+  }
+  .chip button { background: none; color: var(--ink-soft); padding: 0 2px; font-size: 1rem; line-height: 1; }
+  @keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* 문제 */
+  .qhead { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .qno { font-family: var(--body); font-weight: 800; font-size: 1.4rem; }
+  .timer {
+    margin-left: auto; width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center;
+    font-family: var(--display); font-weight: 400; font-size: 2.2rem; color: #fff; background: conic-gradient(var(--coral) var(--p, 100%), var(--ink) 0);
+    font-variant-numeric: tabular-nums;
+  }
+  .timer span { width: 66px; height: 66px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; }
+  .answered { font-family: var(--body); font-weight: 800; font-size: 1.3rem; }
+  .answered b { color: var(--coral); font-weight: 400; font-size: 1.8rem; }
+  .qtext { font-family: var(--display); font-weight: 400; font-size: clamp(1.9rem, 3.2vw, 3.6rem); line-height: 1.35; text-wrap: balance; max-width: 32em; }
+  .hint { font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: .14em; color: var(--coral); text-align: center; }
+  .opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .opt {
+    background: var(--c); color: var(--on, #fff); border-radius: 20px; padding: 0.9em 1em; min-height: 3.6em;
+    display: flex; align-items: center; gap: 0.6em; font-family: var(--body); font-weight: 800; font-size: clamp(1.4rem, 2.3vw, 2.8rem); line-height: 1.3;
+    box-shadow: 0 5px 0 rgba(0,0,0,.15);
+  }
+  #qBody { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1em; }
+  #question .opts { grid-auto-rows: 1fr; min-height: 42vh; }
+  .opt.big { justify-content: center; font-size: clamp(4rem, 10vw, 9rem); }
+  .opt.dim { opacity: .3; }
+  .opt.right { outline: 6px solid var(--ink); outline-offset: 4px; }
+  .order-items { display: grid; gap: 10px; }
+  .order-items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .order-items div { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 0.8em 1em; font-family: var(--body); font-weight: 800; font-size: clamp(1.3rem, 2vw, 2.3rem); }
+  .count-over {
+    position: fixed; inset: 0; display: grid; place-items: center; background: var(--frame); color: var(--ink); z-index: 5;
+    font-family: var(--body); font-weight: 800; text-align: center;
+  }
+  .count-over .n { font-size: 30vmin; line-height: 1; animation: pop .5s ease-out; }
+
+  /* 정답 공개 */
+  .reveal-grid { font-size: 1.15em; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+  @media (max-width: 900px) { .reveal-grid { grid-template-columns: 1fr; } }
+  .answer-box { background: var(--mint); color: #fff; border-radius: 20px; padding: 22px 26px; }
+  .answer-box .display { font-size: clamp(2rem, 3.4vw, 3.8rem); }
+  #reveal .rank-list li { padding: 0.6em 0.9em; }
+  .bars { display: grid; gap: 10px; }
+  .bar { display: grid; grid-template-columns: minmax(0, 11em) 1fr 3.5em; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1em; }
+  .bar .track { background: rgba(31,45,90,.08); border-radius: 10px; height: 34px; overflow: hidden; }
+  .bar .fill { height: 100%; background: var(--c); width: 0; transition: width .8s ease-out; border-radius: 10px; }
+  .bar .nm { line-height: 1.3; }
+  .bar.ok .nm::after { content: " ✓"; color: var(--mint); }
+  .stat-big { font-family: var(--body); font-weight: 800; font-size: 1.5rem; }
+
+  /* 설명 슬라이드 */
+  .slide { flex: 1; display: flex; flex-direction: column; gap: 1.1em; font-size: .86em; }
+  .slide-head { display: grid; gap: .55em; justify-items: center; text-align: center; padding-bottom: .9em; border-bottom: 2px dashed var(--dash); }
+  .slide-head h2 { font-size: clamp(2.1rem, 3.3vw, 4rem); line-height: 1.25; max-width: 24em; }
+  .slide-body { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.6em; align-items: center; }
+  .slide-body.has-art { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); }
+  @media (max-width: 900px) { .slide-body.has-art { grid-template-columns: 1fr; } }
+  .visual { font-size: 1.12em; }
+  .slide-body.has-art .visual { font-size: 1em; }
+  .art { margin: 0; }
+  .art img { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 22px; display: block; }
+  .slide-foot { display: flex; gap: .8em; align-items: baseline; justify-content: center; background: var(--paper); border: 2px solid var(--indigo); border-radius: 14px; padding: .7em 1.1em; }
+  .slide-foot p { margin: 0; font-size: clamp(1rem, 1.25vw, 1.5rem); color: var(--ink-soft); line-height: 1.55; }
+  .src-tag { flex: none; background: var(--indigo); color: #fff; font-weight: 700; font-size: .8em; padding: .25em .8em; border-radius: 999px; }
+  .lead { font-weight: 800; font-size: 1.1em; color: var(--ink-soft); margin: 0 0 .8em; }
+
+  /* 흐름도 */
+  .flow { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2.4em; }
+  .flow .step { position: relative; background: var(--paper); border: 2px solid var(--line); border-radius: 22px; padding: 1.2em 1.2em 1.3em; display: grid; gap: .5em; align-content: start; }
+  .flow .step:not(:last-child)::after {
+    content: ""; position: absolute; right: -1.85em; top: 50%; width: 1.3em; height: 1.3em; transform: translateY(-50%);
+    background: var(--coral); clip-path: polygon(0 15%, 60% 15%, 60% 0, 100% 50%, 60% 100%, 60% 85%, 0 85%);
+  }
+  .flow .n { width: 2em; height: 2em; border-radius: 50%; display: grid; place-items: center; color: #fff; font-family: var(--body); font-weight: 800; font-size: 1.2em; }
+  .flow .step:nth-child(4n+1) .n { background: var(--coral); }
+  .flow .step:nth-child(4n+2) .n { background: var(--mint); }
+  .flow .step:nth-child(4n+3) .n { background: var(--sky); }
+  .flow .step:nth-child(4n+4) .n { background: var(--mustard); color: var(--ink); }
+  .flow .t { font-family: var(--display); font-weight: 400; font-size: 1.55em; line-height: 1.3; }
+  .flow .fwhen { justify-self: start; background: var(--coral-soft); color: #C2587B; font-weight: 800; padding: .25em .8em; border-radius: 999px; font-size: .95em; }
+  .flow .s { color: var(--ink-soft); line-height: 1.5; }
+  /* 그림이 함께 있을 때: 흐름도를 세로 목록으로 */
+  .slide-body.has-art .flow { grid-auto-flow: row; gap: .6em; }
+  .slide-body.has-art .flow .step { grid-template-columns: auto minmax(0, 1fr); column-gap: .9em; row-gap: .15em; padding: .75em 1.1em; align-items: center; }
+  .slide-body.has-art .flow .n { grid-row: span 2; }
+  .slide-body.has-art .flow .t { font-size: 1.35em; }
+  .slide-body.has-art .flow .step:not(:last-child)::after { display: none; }
+  .slide-body.has-art:has(.cmp) { grid-template-columns: minmax(0, 1.75fr) minmax(0, .9fr); }
+  @media (max-width: 900px) { .flow { grid-auto-flow: row; } .flow .step:not(:last-child)::after { display: none; } }
+
+  /* 순서도 */
+  .proc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 1.4em; position: relative; }
+  .proc::before {
+    content: ""; position: absolute; top: 2.1em; left: calc(100% / var(--n) / 2); right: calc(100% / var(--n) / 2); height: 6px;
+    background: repeating-linear-gradient(90deg, var(--line) 0 14px, transparent 14px 22px); border-radius: 3px;
+  }
+  .pstep { position: relative; display: grid; grid-template-rows: auto 1fr; justify-items: center; gap: 1.1em; }
+  .pstep.p0 { --c: var(--coral); } .pstep.p1 { --c: var(--mint); } .pstep.p2 { --c: var(--sky); } .pstep.p3 { --c: var(--mustard); }
+  .pnode {
+    position: relative; z-index: 1; width: 4.2em; height: 4.2em; border-radius: 50%; background: var(--c);
+    display: grid; place-items: center; box-shadow: 0 0 0 8px var(--card), 0 6px 0 rgba(31,45,90,.12);
+  }
+  .pnode span { font-family: var(--body); font-weight: 800; font-size: 2em; color: #fff; }
+  .pstep.p3 .pnode span { color: var(--ink); }
+  .pstep:not(:last-child) .pnode::after {
+    content: ""; position: absolute; left: calc(100% + 1.1em); top: 50%; width: 1.2em; height: 1.2em; transform: translateY(-50%);
+    border-top: 5px solid var(--c); border-right: 5px solid var(--c); rotate: 45deg; border-radius: 2px;
+  }
+  .pcard {
+    width: 100%; background: var(--paper); border: 2px solid var(--line); border-top: 8px solid var(--c);
+    border-radius: 20px; padding: 1.1em .9em 1.2em; display: grid; gap: .65em; align-content: start; justify-items: center; text-align: center; height: 100%;
+  }
+  .pt { font-family: var(--display); font-weight: 400; font-size: 1.55em; line-height: 1.25; white-space: nowrap; }
+  .pchips { display: flex; flex-wrap: wrap; gap: .4em; justify-content: center; }
+  .pwho { background: var(--ink); color: #fff; font-weight: 700; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
+  .pwhen { background: var(--coral-soft); color: #C2587B; font-weight: 800; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
+  .pnote { color: var(--ink-soft); line-height: 1.45; font-size: .9em; }
+  @media (max-width: 900px) { .proc { grid-template-columns: 1fr; } .proc::before, .pnode::after { display: none; } }
+
+  /* 표 · 비교표 */
+  .tbl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 1.15em; }
+  .tbl th, .tbl td { padding: .75em 1em; text-align: left; border-bottom: 2px solid var(--line); vertical-align: middle; }
+  .tbl thead th { font-weight: 800; font-size: 1.05em; border-bottom: 3px solid var(--ink); }
+  .tbl tbody th { font-weight: 700; color: var(--ink-soft); width: 18%; white-space: nowrap; }
+  .tbl.cmp thead th:nth-child(2) { color: var(--sky); }
+  .tbl.cmp thead th:nth-child(3) { color: var(--coral); }
+  .tbl.cmp td { width: 41%; }
+  .tbl.cmp td:nth-child(3) { background: var(--coral-soft); }
+  .tbl.cmp tr:first-child td:nth-child(3) { border-top-left-radius: 0; }
+  .tbl .num { font-family: var(--body); font-weight: 800; font-size: 1.35em; }
+  .tbl tr.hi td, .tbl tr.hi th { background: var(--coral-soft); color: var(--ink); }
+  .tbl tr.hi .num { color: var(--coral); font-size: 1.7em; }
+
+  /* 연령 막대 */
+  .tline { display: flex; gap: .4em; align-items: stretch; }
+  .tline .seg { border-radius: 18px; padding: 1.1em 1.2em; display: grid; gap: .35em; align-content: center; min-height: 9em; }
+  .tline .seg .lb { font-family: var(--display); font-weight: 400; font-size: 1.5em; line-height: 1.25; }
+  .tline .seg .tg { justify-self: start; font-weight: 800; padding: .2em .8em; border-radius: 999px; background: rgba(255,255,255,.85); }
+  .tline .seg .sb { font-weight: 700; opacity: .9; }
+  .seg.mint { background: var(--mint-soft); color: #2F8A70; }
+  .seg.coral { background: var(--coral); color: #fff; }
+  .seg.coral .tg { color: var(--coral); }
+  .seg.sky { background: #DCE7FA; color: #23478F; }
+
+  /* 체크리스트 · 카드 */
+  .check { display: grid; gap: .8em; list-style: none; margin: 0; padding: 0; }
+  .check li { display: grid; grid-template-columns: 2.2em 1fr; gap: .9em; align-items: center; background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: .9em 1.2em; }
+  .check .ck { width: 2.2em; height: 2.2em; border-radius: 50%; background: var(--mint); color: #fff; display: grid; place-items: center; font-weight: 900; }
+  .check .t, .cards .t { font-family: var(--display); font-weight: 400; font-size: 1.5em; line-height: 1.3; }
+  .check .s, .cards .s { color: var(--ink-soft); }
+  .cards { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 1em; }
+  .cards .cd { border-radius: 22px; padding: 1.4em; display: grid; gap: .4em; align-content: start; min-height: 9em; border: 2px solid var(--line); background: var(--paper); border-top: 10px solid var(--c); }
+  .cards .cd:nth-child(1) { --c: var(--coral); } .cards .cd:nth-child(2) { --c: var(--mint); } .cards .cd:nth-child(3) { --c: var(--sky); }
+
+  /* 낱말 칩 */
+  .chipset { display: flex; flex-wrap: wrap; gap: .6em; }
+  .chipset span { background: var(--mint-soft); color: #2F8A70; font-weight: 800; font-size: 1.15em; padding: .45em 1em; border-radius: 999px; }
+  .badbox { margin-top: 1.1em; display: flex; gap: 1em; align-items: center; background: var(--coral-soft); border-radius: 18px; padding: .9em 1.2em; }
+  .badbox b { font-family: var(--display); font-weight: 400; font-size: 1.6em; color: var(--coral); text-decoration: line-through; text-decoration-thickness: 3px; }
+
+  /* 정의 */
+  .define { display: grid; gap: 1em; }
+  .define .word { font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 6vw, 6rem); color: var(--coral); line-height: 1; }
+  .define blockquote { margin: 0; font-size: 1.3em; line-height: 1.6; border-left: 6px solid var(--mint); padding: .2em 0 .2em 1em; }
+  .define blockquote mark { background: linear-gradient(transparent 55%, #FFE3EC 55%); color: inherit; }
+
+  /* 최종 */
+  .podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: end; max-width: 900px; margin: 0 auto; width: 100%; }
+  .pod { text-align: center; display: grid; gap: 8px; }
+  .pod .nm { font-family: var(--display); font-weight: 400; font-size: clamp(1.3rem, 2.6vw, 2.2rem); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pod .block { border-radius: 18px 18px 0 0; color: #fff; font-family: var(--body); font-weight: 800; display: grid; place-items: center; font-size: 3rem; animation: rise .9s ease-out both; }
+  .pod.p1 .block { background: var(--coral); height: 230px; animation-delay: .9s; }
+  .pod.p2 .block { background: var(--mint); height: 170px; animation-delay: .5s; }
+  .pod.p3 .block { background: var(--sky); height: 120px; animation-delay: .1s; }
+  .pod .sc { font-variant-numeric: tabular-nums; color: var(--ink-soft); font-weight: 700; }
+  @keyframes rise { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); transform-origin: bottom; } }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand">장애인식개선 <b>퀴즈</b></div>
+    <span class="label" id="roomLabel" hidden></span>
+    <button class="btn ghost" id="fsBtn" style="margin-left:auto;font-size:1rem;padding:8px 16px">전체화면</button>
+  </header>
+
+  <!-- Firebase 미설정 -->
+  <section id="setup" data-screen hidden>
+    <div class="card">
+      <h2>Firebase 연결이 필요해요</h2>
+      <p class="muted">config.js 파일에 firebaseConfig 값을 붙여 넣으면 퀴즈를 열 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- 시작 -->
+  <section id="start" data-screen hidden>
+    <div class="card">
+      <span class="label">진행자 화면</span>
+      <h1 id="quizTitle"></h1>
+      <p class="muted" id="quizInfo"></p>
+      <div class="row" style="justify-content:center">
+        <button class="btn coral" id="createBtn">새 퀴즈 방 열기</button>
+        <button class="btn ghost" id="resumeBtn" hidden></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 대기실 -->
+  <section id="lobby" data-screen hidden>
+    <div class="lobby">
+      <div class="card join-card">
+        <span class="label">휴대폰 카메라로 QR을 찍어 들어오세요</span>
+        <div id="qr"></div>
+        <div class="muted">PIN 번호</div>
+        <div class="pin" id="pinText"></div>
+        <div class="url" id="joinUrl"></div>
+      </div>
+      <div class="card">
+        <div class="people-head"><span class="n" id="pCount">0</span><span class="ui" style="font-size:1.3rem">명 입장</span></div>
+        <div class="chips" id="chips"><span class="muted">아직 아무도 없어요. QR을 찍고 닉네임을 입력하면 여기에 이름이 보여요.</span></div>
+        <p class="muted" style="margin-top:14px;font-size:.9rem">이름 옆 × 를 누르면 그 참가자를 내보냅니다.</p>
+        <div class="actions" style="margin-top:16px">
+          <button class="btn coral" id="startBtn">퀴즈 시작</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 문제 -->
+  <section id="question" data-screen hidden>
+    <div class="qhead">
+      <span class="qno" id="qNo"></span>
+      <span class="label" id="qType"></span>
+      <span class="double-badge" id="qDouble" hidden>점수 2배!</span>
+      <span class="answered"><b id="ansCount">0</b> / <span id="ansTotal">0</span> 명 제출</span>
+      <div class="timer" id="timer"><span id="timerNum"></span></div>
+    </div>
+    <div class="qtext" id="qText"></div>
+    <div id="qBody"></div>
+    <div class="actions"><button class="btn ghost" id="revealNow">바로 정답 공개</button></div>
+    <div class="count-over" id="countOver" hidden><div><div style="font-size:5vmin" id="countLabel"></div><div class="double-badge" id="countDouble" style="font-size:4vmin;margin-top:2vmin" hidden>점수 2배 찬스!</div><div class="n" id="countNum"></div></div></div>
+  </section>
+
+  <!-- 정답 공개 -->
+  <section id="reveal" data-screen hidden>
+    <div class="qhead"><span class="qno" id="rNo"></span><span class="label coral">정답 공개</span></div>
+    <div class="reveal-grid">
+      <div style="display:grid;gap:16px">
+        <div class="answer-box"><div style="opacity:.85;font-weight:700">정답</div><div class="display" id="rAnswer"></div></div>
+        <div class="card">
+          <div class="stat-big" id="rStat"></div>
+          <div class="bars" id="rBars" style="margin-top:14px"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:2rem;margin-bottom:12px">지금 순위</h3>
+        <ol class="rank-list" id="rTop"></ol>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn mint" id="toExplain">설명 보기</button>
+      <button class="btn coral" id="rNext"></button>
+    </div>
+  </section>
+
+  <!-- 설명 슬라이드 -->
+  <section id="explain" data-screen hidden>
+    <article class="slide">
+      <header class="slide-head">
+        <span class="label" id="exNo"></span>
+        <h2 id="exTitle"></h2>
+      </header>
+      <div class="slide-body" id="exBody">
+        <div class="visual" id="exVisual"></div>
+        <figure class="art" id="exArt" hidden><img id="exImg" alt=""></figure>
+      </div>
+      <footer class="slide-foot"><span class="src-tag">근거</span><p id="exComment"></p></footer>
+    </article>
+    <div class="actions"><button class="btn coral" id="exNext"></button></div>
+  </section>
+
+  <!-- 최종 결과 -->
+  <section id="final" data-screen hidden>
+    <h1 class="center" style="font-size:clamp(2.2rem,5vw,3.6rem)">최종 순위</h1>
+    <div class="podium" id="podium"></div>
+    <div class="card" style="max-width:900px;margin:0 auto;width:100%">
+      <ol class="rank-list" id="allRank"></ol>
+    </div>
+    <div class="actions" style="max-width:900px;margin:0 auto;width:100%">
+      <button class="btn ghost" id="newRoom">새 방 열기</button>
+      <button class="btn" id="closeRoom">방 데이터 지우기</button>
+    </div>
+  </section>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="config.js"></script>
+<script src="quiz.js"></script>
+<script src="common.js"></script>
+<script src="host.js"></script>
+</body>
+</html>
