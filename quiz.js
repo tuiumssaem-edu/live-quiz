@@ -12,10 +12,10 @@ window.QUIZ = {
   questions: [
     {
       type: "chosung",
-      text: "교육목표, 교육방법, 교육내용, 관련서비스 등을 담아 학생 개인별로 세우는 교육 계획은?",
-      hint: "ㄱㅂㅎㄱㅇㄱㅎ",
-      answers: ["개별화교육계획", "IEP"],
-      display: "개별화교육계획",
+      text: "교육목표, 교육방법, 교육내용, 관련서비스 등을 담아 학생 개인별로 세우는 교육 계획은? (초성 세 글자만 쓰세요)",
+      hint: "ㄱㅂㅎ교육계획",
+      answers: ["개별화", "개별화교육계획", "IEP"],
+      display: "개별화(교육계획)",
       time: 30,
       explain: {
         art: "images/art1.jpg",
