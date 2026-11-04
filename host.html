@@ -12,7 +12,7 @@
   body { font-size: clamp(16px, 1vw + 5px, 32px); }
   section[data-screen] { display: flex; flex-direction: column; gap: 1.1em; flex: 1; }
   section[data-screen] > .actions { margin-top: auto; }
-  .wrap { max-width: min(1600px, 94vw); margin: 0 auto; min-height: 100%; }
+  .wrap { max-width: min(1700px, calc(100% - 2 * clamp(12px, 5.5vw, 110px))); margin-inline: auto; }
   .topbar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
   .brand { font-family: var(--body); font-weight: 800; font-size: 1.3rem; }
   .brand b { color: var(--coral); }
@@ -44,14 +44,14 @@
   .qno { font-family: var(--body); font-weight: 800; font-size: 1.4rem; }
   .timer {
     margin-left: auto; width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center;
-    font-family: var(--display); font-weight: 700; font-size: 2.2rem; color: #fff; background: conic-gradient(var(--coral) var(--p, 100%), var(--ink) 0);
+    font-family: var(--display); font-weight: 400; font-size: 2.2rem; color: #fff; background: conic-gradient(var(--coral) var(--p, 100%), var(--ink) 0);
     font-variant-numeric: tabular-nums;
   }
   .timer span { width: 66px; height: 66px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; }
   .answered { font-family: var(--body); font-weight: 800; font-size: 1.3rem; }
   .answered b { color: var(--coral); font-weight: 400; font-size: 1.8rem; }
-  .qtext { font-family: var(--display); font-weight: 700; font-size: clamp(1.9rem, 3.2vw, 3.6rem); line-height: 1.35; text-wrap: balance; max-width: 32em; }
-  .hint { font-family: var(--display); font-weight: 700; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: .14em; color: var(--coral); text-align: center; }
+  .qtext { font-family: var(--display); font-weight: 400; font-size: clamp(1.9rem, 3.2vw, 3.6rem); line-height: 1.35; text-wrap: balance; max-width: 32em; }
+  .hint { font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: .14em; color: var(--coral); text-align: center; }
   .opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .opt {
     background: var(--c); color: var(--on, #fff); border-radius: 20px; padding: 0.9em 1em; min-height: 3.6em;
@@ -114,7 +114,7 @@
   .flow .step:nth-child(4n+2) .n { background: var(--mint); }
   .flow .step:nth-child(4n+3) .n { background: var(--sky); }
   .flow .step:nth-child(4n+4) .n { background: var(--mustard); color: var(--ink); }
-  .flow .t { font-family: var(--display); font-weight: 700; font-size: 1.55em; line-height: 1.3; }
+  .flow .t { font-family: var(--display); font-weight: 400; font-size: 1.55em; line-height: 1.3; }
   .flow .s { color: var(--ink-soft); line-height: 1.5; }
   /* 그림이 함께 있을 때: 흐름도를 세로 목록으로 */
   .slide-body.has-art .flow { grid-auto-flow: row; gap: .6em; }
@@ -147,7 +147,7 @@
     width: 100%; background: var(--paper); border: 2px solid var(--line); border-top: 8px solid var(--c);
     border-radius: 20px; padding: 1.1em .9em 1.2em; display: grid; gap: .65em; align-content: start; justify-items: center; text-align: center; height: 100%;
   }
-  .pt { font-family: var(--display); font-weight: 700; font-size: 1.55em; line-height: 1.25; white-space: nowrap; }
+  .pt { font-family: var(--display); font-weight: 400; font-size: 1.55em; line-height: 1.25; white-space: nowrap; }
   .pchips { display: flex; flex-wrap: wrap; gap: .4em; justify-content: center; }
   .pwho { background: var(--ink); color: #fff; font-weight: 700; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
   .pwhen { background: var(--coral-soft); color: #A9361F; font-weight: 800; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
@@ -171,7 +171,7 @@
   /* 연령 막대 */
   .tline { display: flex; gap: .4em; align-items: stretch; }
   .tline .seg { border-radius: 18px; padding: 1.1em 1.2em; display: grid; gap: .35em; align-content: center; min-height: 9em; }
-  .tline .seg .lb { font-family: var(--display); font-weight: 700; font-size: 1.5em; line-height: 1.25; }
+  .tline .seg .lb { font-family: var(--display); font-weight: 400; font-size: 1.5em; line-height: 1.25; }
   .tline .seg .tg { justify-self: start; font-weight: 800; padding: .2em .8em; border-radius: 999px; background: rgba(255,255,255,.85); }
   .tline .seg .sb { font-weight: 700; opacity: .9; }
   .seg.mint { background: var(--mint-soft); color: #0E5F54; }
@@ -183,7 +183,7 @@
   .check { display: grid; gap: .8em; list-style: none; margin: 0; padding: 0; }
   .check li { display: grid; grid-template-columns: 2.2em 1fr; gap: .9em; align-items: center; background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: .9em 1.2em; }
   .check .ck { width: 2.2em; height: 2.2em; border-radius: 50%; background: var(--mint); color: #fff; display: grid; place-items: center; font-weight: 900; }
-  .check .t, .cards .t { font-family: var(--display); font-weight: 700; font-size: 1.5em; line-height: 1.3; }
+  .check .t, .cards .t { font-family: var(--display); font-weight: 400; font-size: 1.5em; line-height: 1.3; }
   .check .s, .cards .s { color: var(--ink-soft); }
   .cards { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 1em; }
   .cards .cd { border-radius: 22px; padding: 1.4em; display: grid; gap: .4em; align-content: start; min-height: 9em; border: 2px solid var(--line); background: var(--paper); border-top: 10px solid var(--c); }
@@ -197,14 +197,14 @@
 
   /* 정의 */
   .define { display: grid; gap: 1em; }
-  .define .word { font-family: var(--display); font-weight: 700; font-size: clamp(3rem, 6vw, 6rem); color: var(--coral); line-height: 1; }
+  .define .word { font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 6vw, 6rem); color: var(--coral); line-height: 1; }
   .define blockquote { margin: 0; font-size: 1.3em; line-height: 1.6; border-left: 6px solid var(--mint); padding: .2em 0 .2em 1em; }
   .define blockquote mark { background: linear-gradient(transparent 55%, #FFE1DA 55%); color: inherit; }
 
   /* 최종 */
   .podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: end; max-width: 900px; margin: 0 auto; width: 100%; }
   .pod { text-align: center; display: grid; gap: 8px; }
-  .pod .nm { font-family: var(--display); font-weight: 700; font-size: clamp(1.3rem, 2.6vw, 2.2rem); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pod .nm { font-family: var(--display); font-weight: 400; font-size: clamp(1.3rem, 2.6vw, 2.2rem); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .pod .block { border-radius: 18px 18px 0 0; color: #fff; font-family: var(--body); font-weight: 800; display: grid; place-items: center; font-size: 3rem; animation: rise .9s ease-out both; }
   .pod.p1 .block { background: var(--coral); height: 230px; animation-delay: .9s; }
   .pod.p2 .block { background: var(--mint); height: 170px; animation-delay: .5s; }

@@ -11,7 +11,7 @@
 <style>
   body { font-size: 17px; }
   @media (max-width: 360px) { body { font-size: 16px; } .qtext { font-size: 1.2rem; } }
-  .wrap { max-width: 560px; margin: 0 auto; }
+  .wrap { max-width: min(560px, calc(100% - 2 * clamp(12px, 5.5vw, 110px))); margin-inline: auto; }
   .brand { font-family: var(--body); font-weight: 800; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
   .brand b { color: var(--coral); }
   .me { font-family: var(--body); font-size: .9rem; font-weight: 700; background: var(--card); border: 2px solid var(--line); border-radius: 999px; padding: 4px 12px; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -26,7 +26,7 @@
   .tbar { height: 10px; background: rgba(31,45,90,.1); border-radius: 10px; overflow: hidden; }
   .tbar div { height: 100%; background: var(--coral); width: 100%; }
   .qtext { font-weight: 800; font-size: 1.3rem; line-height: 1.5; text-wrap: pretty; }
-  .hint { font-family: var(--display); font-weight: 700; font-size: 2.6rem; letter-spacing: .12em; color: var(--coral); text-align: center; }
+  .hint { font-family: var(--display); font-weight: 400; font-size: 2.6rem; letter-spacing: .12em; color: var(--coral); text-align: center; }
   .choices { display: grid; gap: 10px; }
   .choice {
     background: var(--c); color: var(--on, #fff); border-radius: 18px; padding: 16px 18px; min-height: 64px;
@@ -44,7 +44,7 @@
   .order-pick button .badge { width: 1.8em; height: 1.8em; border-radius: 50%; border: 2px dashed var(--line); display: grid; place-items: center; flex: none; }
   .order-pick button.on { border-color: var(--mint); background: var(--mint-soft); }
   .order-pick button.on .badge { background: var(--mint); border: 0; color: #fff; }
-  .countdown { font-family: var(--display); font-weight: 700; font-size: 8rem; text-align: center; color: var(--coral); line-height: 1; }
+  .countdown { font-family: var(--display); font-weight: 400; font-size: 8rem; text-align: center; color: var(--coral); line-height: 1; }
   .result { display: grid; gap: 10px; text-align: center; padding: 30px 20px; border-radius: 24px; color: #fff; }
   .result.ok { background: var(--mint); }
   .result.no { background: var(--coral); }
