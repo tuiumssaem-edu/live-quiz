@@ -8,7 +8,7 @@
       title 큰 제목 · comment 아래 설명·출처 · visual 도식(flow/compare/timeline/checklist/chips/cards/table/define) · art 그림(선택)
 */
 window.QUIZ = {
-  title: "통합교육·장애인권 교사 연수 퀴즈",
+  title: "장애인식개선 교직원 연수 퀴즈",
   questions: [
     {
       type: "chosung",
