@@ -18,7 +18,6 @@
     u.hash = "";
     const p = new URLSearchParams({ pin });
     if (QZ.params.get("emu")) p.set("emu", "1");
-    if (QZ.params.get("quiz")) p.set("quiz", QZ.params.get("quiz"));
     return u.href + "?" + p.toString();
   }
 
