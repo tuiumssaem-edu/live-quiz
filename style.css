@@ -18,8 +18,8 @@
   --mustard-soft: #FFF1CC;
   --sky: #4A43A6;          /* 보라빛 남색 */
   --card: #FFFFFF;
-  --display: "HakgyoansimMonggeul", "Jua", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --display: "GriunYeeun", "Jua", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --body: "OmyuPretty", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -43,7 +43,7 @@ button { font: inherit; cursor: pointer; border: 0; }
 button:focus-visible, input:focus-visible { outline: 3px solid var(--mustard); outline-offset: 3px; }
 input {
   font: inherit; width: 100%; padding: 14px 16px; border-radius: 14px;
-  border: 2px solid var(--line); background: var(--card); color: var(--ink); font-size: 1.15rem;
+  border: 2px solid var(--line); background: var(--card); color: var(--ink); font-size: 1.25rem;
 }
 input:focus { border-color: var(--indigo); outline: none; }
 
@@ -73,8 +73,8 @@ input:focus { border-color: var(--indigo); outline: none; }
 
 .label {
   display: inline-block; background: var(--indigo); color: #fff;
-  font-weight: 700; font-size: .85rem; letter-spacing: .04em;
-  padding: 5px 13px; border-radius: 999px;
+  font-weight: 700; font-size: 1rem; letter-spacing: .02em;
+  padding: 4px 14px; border-radius: 999px;
 }
 .label.coral { background: var(--coral); color: #fff; }
 .card { background: var(--paper); border: 2px solid var(--line); border-radius: 20px; padding: 20px; }

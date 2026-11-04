@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
 <link rel="stylesheet" href="style.css">
 <style>
-  body { font-size: clamp(16px, 1vw + 5px, 32px); }
+  body { font-size: clamp(18px, 1.15vw + 6px, 36px); }
   section[data-screen] { display: flex; flex-direction: column; gap: 1.1em; flex: 1; }
   section[data-screen] > .actions { margin-top: auto; }
   .wrap { max-width: min(1700px, calc(100% - 2 * clamp(12px, 5.5vw, 110px))); margin-inline: auto; }
@@ -67,7 +67,7 @@
   .order-items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .order-items div { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 0.8em 1em; font-family: var(--body); font-weight: 800; font-size: clamp(1.3rem, 2vw, 2.3rem); }
   .count-over {
-    position: fixed; inset: 0; display: grid; place-items: center; background: rgba(31,45,90,.92); color: #fff; z-index: 5;
+    position: fixed; inset: 0; display: grid; place-items: center; background: var(--frame); color: #fff; z-index: 5;
     font-family: var(--body); font-weight: 800; text-align: center;
   }
   .count-over .n { font-size: 30vmin; line-height: 1; animation: pop .5s ease-out; }
@@ -87,7 +87,7 @@
   .stat-big { font-family: var(--body); font-weight: 800; font-size: 1.5rem; }
 
   /* 설명 슬라이드 */
-  .slide { flex: 1; display: flex; flex-direction: column; gap: 1.2em; }
+  .slide { flex: 1; display: flex; flex-direction: column; gap: 1.1em; font-size: .86em; }
   .slide-head { display: grid; gap: .55em; justify-items: center; text-align: center; padding-bottom: .9em; border-bottom: 2px dashed var(--dash); }
   .slide-head h2 { font-size: clamp(2.1rem, 3.3vw, 4rem); line-height: 1.25; max-width: 24em; }
   .slide-body { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.6em; align-items: center; }

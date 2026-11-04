@@ -1,7 +1,14 @@
-/* 학교안심 몽글몽글 (한국교육학술정보원 KERIS) – 눈누 웹폰트(jsDelivr) */
+/* 제목: 그리운 예은체 (그리운 griun.co.kr) / 본문: 오뮤 다예쁨체 (오뮤다이어리 × 보이저엑스)
+   두 글꼴 모두 웹 임베딩 허용 무료 글꼴이며, 파일은 수정 없이 그대로 씁니다. */
 @font-face {
-  font-family: "HakgyoansimMonggeul";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMonggeulmonggeulR.woff2") format("woff2");
+  font-family: "GriunYeeun";
+  src: url("fonts/Griun_Yeeun-Rg.woff2") format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "OmyuPretty";
+  src: url("fonts/omyu_pretty.woff2") format("woff2");
   font-weight: normal;
   font-display: swap;
 }
