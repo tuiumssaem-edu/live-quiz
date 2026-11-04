@@ -67,7 +67,7 @@
   .order-items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .order-items div { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 0.8em 1em; font-family: var(--body); font-weight: 800; font-size: clamp(1.3rem, 2vw, 2.3rem); }
   .count-over {
-    position: fixed; inset: 0; display: grid; place-items: center; background: var(--frame); color: #fff; z-index: 5;
+    position: fixed; inset: 0; display: grid; place-items: center; background: var(--frame); color: var(--ink); z-index: 5;
     font-family: var(--body); font-weight: 800; text-align: center;
   }
   .count-over .n { font-size: 30vmin; line-height: 1; animation: pop .5s ease-out; }
@@ -115,7 +115,7 @@
   .flow .step:nth-child(4n+3) .n { background: var(--sky); }
   .flow .step:nth-child(4n+4) .n { background: var(--mustard); color: var(--ink); }
   .flow .t { font-family: var(--display); font-weight: 400; font-size: 1.55em; line-height: 1.3; }
-  .flow .fwhen { justify-self: start; background: var(--coral-soft); color: #A9361F; font-weight: 800; padding: .25em .8em; border-radius: 999px; font-size: .95em; }
+  .flow .fwhen { justify-self: start; background: var(--coral-soft); color: #C2587B; font-weight: 800; padding: .25em .8em; border-radius: 999px; font-size: .95em; }
   .flow .s { color: var(--ink-soft); line-height: 1.5; }
   /* 그림이 함께 있을 때: 흐름도를 세로 목록으로 */
   .slide-body.has-art .flow { grid-auto-flow: row; gap: .6em; }
@@ -151,7 +151,7 @@
   .pt { font-family: var(--display); font-weight: 400; font-size: 1.55em; line-height: 1.25; white-space: nowrap; }
   .pchips { display: flex; flex-wrap: wrap; gap: .4em; justify-content: center; }
   .pwho { background: var(--ink); color: #fff; font-weight: 700; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
-  .pwhen { background: var(--coral-soft); color: #A9361F; font-weight: 800; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
+  .pwhen { background: var(--coral-soft); color: #C2587B; font-weight: 800; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
   .pnote { color: var(--ink-soft); line-height: 1.45; font-size: .9em; }
   @media (max-width: 900px) { .proc { grid-template-columns: 1fr; } .proc::before, .pnode::after { display: none; } }
 
@@ -175,7 +175,7 @@
   .tline .seg .lb { font-family: var(--display); font-weight: 400; font-size: 1.5em; line-height: 1.25; }
   .tline .seg .tg { justify-self: start; font-weight: 800; padding: .2em .8em; border-radius: 999px; background: rgba(255,255,255,.85); }
   .tline .seg .sb { font-weight: 700; opacity: .9; }
-  .seg.mint { background: var(--mint-soft); color: #0E5F54; }
+  .seg.mint { background: var(--mint-soft); color: #2F8A70; }
   .seg.coral { background: var(--coral); color: #fff; }
   .seg.coral .tg { color: var(--coral); }
   .seg.sky { background: #DCE7FA; color: #23478F; }
@@ -192,7 +192,7 @@
 
   /* 낱말 칩 */
   .chipset { display: flex; flex-wrap: wrap; gap: .6em; }
-  .chipset span { background: var(--mint-soft); color: #0E5F54; font-weight: 800; font-size: 1.15em; padding: .45em 1em; border-radius: 999px; }
+  .chipset span { background: var(--mint-soft); color: #2F8A70; font-weight: 800; font-size: 1.15em; padding: .45em 1em; border-radius: 999px; }
   .badbox { margin-top: 1.1em; display: flex; gap: 1em; align-items: center; background: var(--coral-soft); border-radius: 18px; padding: .9em 1.2em; }
   .badbox b { font-family: var(--display); font-weight: 400; font-size: 1.6em; color: var(--coral); text-decoration: line-through; text-decoration-thickness: 3px; }
 
@@ -200,7 +200,7 @@
   .define { display: grid; gap: 1em; }
   .define .word { font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 6vw, 6rem); color: var(--coral); line-height: 1; }
   .define blockquote { margin: 0; font-size: 1.3em; line-height: 1.6; border-left: 6px solid var(--mint); padding: .2em 0 .2em 1em; }
-  .define blockquote mark { background: linear-gradient(transparent 55%, #FFE1DA 55%); color: inherit; }
+  .define blockquote mark { background: linear-gradient(transparent 55%, #FFE3EC 55%); color: inherit; }
 
   /* 최종 */
   .podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: end; max-width: 900px; margin: 0 auto; width: 100%; }

@@ -115,7 +115,7 @@
 
   function startQuestion(qi) {
     const q = QS[qi];
-    const startAt = QZ.now() + 3500;
+    const startAt = QZ.now() + 3000;
     revealing = false;
     roomRef.child(`answers/${qi}`).remove().then(() =>
       roomRef.child("state").set({ phase: "question", qi, startAt, endAt: startAt + q.time * 1000 })
