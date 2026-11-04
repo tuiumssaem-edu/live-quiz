@@ -18,7 +18,6 @@ window.QUIZ = {
       display: "개별화(교육계획)",
       time: 30,
       explain: {
-        art: "images/art1.jpg",
         title: "개별화교육계획은 혼자 쓰지 않습니다, 팀이 함께 씁니다!",
         comment: "개별화교육지원팀이 매 학기 작성하며, 전학 시 14일 이내에 전입학교로 보냅니다. (특수교육법 제22조)",
         visual: {
@@ -37,7 +36,6 @@ window.QUIZ = {
       answer: "X",
       time: 20,
       explain: {
-        art: "images/art2.jpg",
         title: "장애인과 특수교육대상자는 같은 말이 아닙니다!",
         comment: "진단·평가 결과로 선정되며, 고등학교 과정은 교육감이 심사를 거쳐 결정합니다. (특수교육법 제15조)",
         visual: {
@@ -59,7 +57,6 @@ window.QUIZ = {
       answer: 0,
       time: 20,
       explain: {
-        art: "images/art3.jpg",
         title: "만 3세부터 만 17세까지, 의무교육의 시간입니다!",
         comment: "전공과와 만 3세 미만 장애영아 교육은 무상입니다. (특수교육법 제3조)",
         visual: {
@@ -68,46 +65,6 @@ window.QUIZ = {
             { label: "만 3세 미만", tag: "무상교육", flex: 2, tone: "mint" },
             { label: "만 3세 ~ 만 17세", tag: "의무교육", sub: "유치원 · 초 · 중 · 고 과정", flex: 6, tone: "coral" },
             { label: "전공과", tag: "무상교육", flex: 2, tone: "sky" }
-          ]
-        }
-      }
-    },
-    {
-      type: "choice",
-      text: "특수교육대상자가 배치된 일반학교에서 통합교육계획을 수립·시행해야 하는 사람은?",
-      options: ["교육부장관", "일반학교의 장", "특수교사 한 명", "학부모"],
-      answer: 1,
-      time: 20,
-      explain: {
-        art: "images/art4.jpg",
-        title: "통합교육의 책임은 일반학교 교장 선생님에게도 있습니다!",
-        comment: "교원 협력을 바탕으로 통합교육계획을 수립·시행합니다. (특수교육법 제21조 제3항)",
-        visual: {
-          type: "flow",
-          steps: [
-            { t: "일반학교의 장", s: "통합교육계획을 세우고 시행할 책임" },
-            { t: "교원 협력", s: "일반교육교원 + 특수교육교원" },
-            { t: "통합교육계획", s: "차별 예방 · 교육과정 조정 등" }
-          ]
-        }
-      }
-    },
-    {
-      type: "ox",
-      text: "통합교육을 실시하는 일반학교는 특수학급을 설치·운영하고, 필요한 시설·설비와 교재·교구를 갖추어야 한다.",
-      answer: "O",
-      time: 20,
-      explain: {
-        art: "images/art5.jpg",
-        title: "특수학급은 선택이 아니라 일반학교의 의무입니다!",
-        comment: "시설·설비와 교재·교구도 함께 갖춰야 합니다. (특수교육법 제21조 제4항)",
-        visual: {
-          type: "checklist",
-          lead: "통합교육을 실시하는 일반학교가 갖춰야 할 것",
-          items: [
-            { t: "특수학급 설치·운영", s: "제27조 학급 설치 기준에 따라" },
-            { t: "시설·설비", s: "대통령령으로 정하는 기준" },
-            { t: "교재·교구", s: "대통령령으로 정하는 기준" }
           ]
         }
       }
@@ -156,7 +113,6 @@ window.QUIZ = {
       display: "장애인차별금지법",
       time: 30,
       explain: {
-        art: "images/art8.jpg",
         title: "차별은 금지하고, 권리는 구제하는 법이 있습니다!",
         comment: "2008년 시행된 법으로, 교육 영역의 차별 금지는 제13조·제14조에 있습니다. (장애인차별금지법)",
         visual: {
@@ -196,7 +152,6 @@ window.QUIZ = {
       display: "통합교육",
       time: 30,
       explain: {
-        art: "images/art10.jpg",
         title: "같은 교실에 있는 것을 넘어, 함께 배우는 것이 통합교육입니다!",
         comment: "장애 유형·정도에 따라 차별받지 않고 또래와 함께 개개인의 교육적 요구에 맞는 교육을 받는 것 (특수교육법 제2조, 제21조)",
         visual: {
