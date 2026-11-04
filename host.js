@@ -253,7 +253,7 @@
     switch (v.type) {
       case "flow":
         return el("div", { class: "flow" }, v.steps.map((st, i) =>
-          el("div", { class: "step" }, el("span", { class: "n" }, String(i + 1)), el("div", { class: "t" }, st.t), st.s ? el("div", { class: "s" }, st.s) : null)));
+          el("div", { class: "step" }, el("span", { class: "n" }, String(i + 1)), el("div", { class: "t" }, st.t), st.when ? el("span", { class: "fwhen" }, "⏱ " + st.when) : null, st.s ? el("div", { class: "s" }, st.s) : null)));
       case "process":
         return el("ol", { class: "proc", style: `--n:${v.steps.length}` }, v.steps.map((st, i) =>
           el("li", { class: `pstep p${i % 4}` },
