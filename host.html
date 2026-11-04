@@ -129,6 +129,35 @@
   .slide-body.has-art:has(.cmp) { grid-template-columns: minmax(0, 1.75fr) minmax(0, .9fr); }
   @media (max-width: 900px) { .flow { grid-auto-flow: row; } .flow .step:not(:last-child)::after { display: none; } }
 
+  /* 순서도 */
+  .proc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 1.4em; position: relative; }
+  .proc::before {
+    content: ""; position: absolute; top: 2.1em; left: calc(100% / var(--n) / 2); right: calc(100% / var(--n) / 2); height: 6px;
+    background: repeating-linear-gradient(90deg, var(--line) 0 14px, transparent 14px 22px); border-radius: 3px;
+  }
+  .pstep { position: relative; display: grid; grid-template-rows: auto 1fr; justify-items: center; gap: 1.1em; }
+  .pstep.p0 { --c: var(--coral); } .pstep.p1 { --c: var(--mint); } .pstep.p2 { --c: var(--sky); } .pstep.p3 { --c: var(--mustard); }
+  .pnode {
+    position: relative; z-index: 1; width: 4.2em; height: 4.2em; border-radius: 50%; background: var(--c);
+    display: grid; place-items: center; box-shadow: 0 0 0 8px var(--card), 0 6px 0 rgba(31,45,90,.12);
+  }
+  .pnode span { font-family: var(--display); font-size: 2em; color: #fff; }
+  .pstep.p3 .pnode span { color: var(--ink); }
+  .pstep:not(:last-child) .pnode::after {
+    content: ""; position: absolute; left: calc(100% + 1.1em); top: 50%; width: 1.2em; height: 1.2em; transform: translateY(-50%);
+    border-top: 5px solid var(--c); border-right: 5px solid var(--c); rotate: 45deg; border-radius: 2px;
+  }
+  .pcard {
+    width: 100%; background: var(--paper); border: 2px solid var(--line); border-top: 8px solid var(--c);
+    border-radius: 20px; padding: 1.1em .9em 1.2em; display: grid; gap: .65em; align-content: start; justify-items: center; text-align: center; height: 100%;
+  }
+  .pt { font-family: var(--display); font-size: 1.55em; line-height: 1.25; white-space: nowrap; }
+  .pchips { display: flex; flex-wrap: wrap; gap: .4em; justify-content: center; }
+  .pwho { background: var(--ink); color: #fff; font-weight: 700; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
+  .pwhen { background: var(--coral-soft); color: #A9361F; font-weight: 800; font-size: .92em; padding: .3em .85em; border-radius: 999px; white-space: nowrap; }
+  .pnote { color: var(--ink-soft); line-height: 1.45; font-size: .9em; }
+  @media (max-width: 900px) { .proc { grid-template-columns: 1fr; } .proc::before, .pnode::after { display: none; } }
+
   /* 표 · 비교표 */
   .tbl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 1.15em; }
   .tbl th, .tbl td { padding: .75em 1em; text-align: left; border-bottom: 2px solid var(--line); vertical-align: middle; }

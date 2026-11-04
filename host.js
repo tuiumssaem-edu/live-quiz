@@ -254,6 +254,17 @@
       case "flow":
         return el("div", { class: "flow" }, v.steps.map((st, i) =>
           el("div", { class: "step" }, el("span", { class: "n" }, String(i + 1)), el("div", { class: "t" }, st.t), st.s ? el("div", { class: "s" }, st.s) : null)));
+      case "process":
+        return el("ol", { class: "proc", style: `--n:${v.steps.length}` }, v.steps.map((st, i) =>
+          el("li", { class: `pstep p${i % 4}` },
+            el("div", { class: "pnode" }, el("span", {}, String(i + 1))),
+            el("div", { class: "pcard" },
+              el("div", { class: "pt" }, st.t),
+              el("div", { class: "pchips" },
+                el("span", { class: "pwho" }, st.who),
+                st.when ? el("span", { class: "pwhen" }, "⏱ " + st.when) : null),
+              st.to ? el("div", { class: "pnote" }, "→ " + st.to) : null,
+              st.note ? el("div", { class: "pnote" }, st.note) : null))));
       case "compare":
         return el("table", { class: "tbl cmp" },
           el("thead", {}, el("tr", {}, el("th", {}, ""), v.cols.map((c) => el("th", {}, c)))),
